@@ -18,9 +18,11 @@ shinyServer(function(input, output) {
         CIcoverage<<-1:nosim
         
         for (i in 1:nosim) {
-            means[i] <<-mean(rnorm(n, avg, sd))
-            ll<-means[i]-1.96*sd/sqrt(n)
-            ul<-means[i]+1.96*sd/sqrt(n)
+            dat<-rnorm(n, avg, sd)
+            means[i] <<-mean(dat)
+            s<-sd(dat)
+            ll<-means[i]-1.96*s/sqrt(n)
+            ul<-means[i]+1.96*s/sqrt(n)
             if(ll < avg & ul > avg){ 
                 CIcoverage[i]<<-1
             }else{CIcoverage[i]<<-0}
